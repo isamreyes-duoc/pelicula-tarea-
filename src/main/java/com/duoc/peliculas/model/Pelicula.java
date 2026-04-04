@@ -1,30 +1,38 @@
 package com.duoc.peliculas.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
-/**
- * Movie entity representing a film with its basic information
- * Contains Spanish content for JSON responses
- */
+@Entity
+@Table(name = "PELICULAS")
+@SequenceGenerator(name = "pelicula_seq", sequenceName = "PELICULA_SEQ", allocationSize = 1)
 public class Pelicula {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pelicula_seq")
+    @Column(name = "ID")
     private Long id;
+
+    @Column(name = "TITULO", nullable = false, length = 200)
     private String titulo;
-    
+
     @JsonProperty("año")
+    @Column(name = "ANIO")
     private Integer año;
-    
+
+    @Column(name = "DIRECTOR", length = 100)
     private String director;
-    
+
     @JsonProperty("genero")
+    @Column(name = "GENERO", length = 50)
     private String genero;
-    
+
+    @Column(name = "SINOPSIS", length = 1000)
     private String sinopsis;
 
-    // Default constructor
     public Pelicula() {
     }
 
-    // Full constructor
     public Pelicula(Long id, String titulo, Integer año, String director, String genero, String sinopsis) {
         this.id = id;
         this.titulo = titulo;
@@ -34,64 +42,27 @@ public class Pelicula {
         this.sinopsis = sinopsis;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    public String getTitulo() {
-        return titulo;
-    }
+    public Integer getAño() { return año; }
+    public void setAño(Integer año) { this.año = año; }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    public String getDirector() { return director; }
+    public void setDirector(String director) { this.director = director; }
 
-    public Integer getAño() {
-        return año;
-    }
+    public String getGenero() { return genero; }
+    public void setGenero(String genero) { this.genero = genero; }
 
-    public void setAño(Integer año) {
-        this.año = año;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getSinopsis() {
-        return sinopsis;
-    }
-
-    public void setSinopsis(String sinopsis) {
-        this.sinopsis = sinopsis;
-    }
+    public String getSinopsis() { return sinopsis; }
+    public void setSinopsis(String sinopsis) { this.sinopsis = sinopsis; }
 
     @Override
     public String toString() {
-        return "Pelicula{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", año=" + año +
-                ", director='" + director + '\'' +
-                ", genero='" + genero + '\'' +
-                ", sinopsis='" + sinopsis + '\'' +
-                '}';
+        return "Pelicula{id=" + id + ", titulo='" + titulo + "', año=" + año +
+               ", director='" + director + "', genero='" + genero + "', sinopsis='" + sinopsis + "'}";
     }
 }
