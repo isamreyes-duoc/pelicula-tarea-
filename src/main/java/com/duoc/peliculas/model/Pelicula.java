@@ -16,7 +16,7 @@ public class Pelicula {
     @Column(name = "TITULO", nullable = false, length = 200)
     private String titulo;
 
-    @JsonProperty("año")
+    @JsonProperty("anio")
     @Column(name = "ANIO")
     private Integer año;
 
