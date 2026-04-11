@@ -23,4 +23,30 @@ public class PeliculaService {
     public Optional<Pelicula> obtenerPeliculaPorId(Long id) {
         return peliculaRepository.findById(id);
     }
+
+    // Guardar una nueva película en la base de datos Oracle
+    public Pelicula guardarPelicula(Pelicula pelicula) {
+        return peliculaRepository.save(pelicula);
+    }
+
+    // Actualizar una película existente en la base de datos Oracle
+    public Optional<Pelicula> actualizarPelicula(Long id, Pelicula peliculaActualizada) {
+        return peliculaRepository.findById(id).map(pelicula -> {
+            pelicula.setTitulo(peliculaActualizada.getTitulo());
+            pelicula.setAño(peliculaActualizada.getAño());
+            pelicula.setDirector(peliculaActualizada.getDirector());
+            pelicula.setGenero(peliculaActualizada.getGenero());
+            pelicula.setSinopsis(peliculaActualizada.getSinopsis());
+            return peliculaRepository.save(pelicula);
+        });
+    }
+
+    // Eliminar una película de la base de datos Oracle
+    public boolean eliminarPelicula(Long id) {
+        if (peliculaRepository.existsById(id)) {
+            peliculaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
